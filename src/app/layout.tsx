@@ -1,3 +1,5 @@
+import { JotaiProvider } from "@/components/jotai-provider"
+
 import type { Metadata } from "next"
 
 import localFont from "next/font/local"
@@ -38,9 +40,11 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <ConvexClientProvider>
-            <Toaster />
-            <Modals />
-            {children}
+            <JotaiProvider>
+              <Toaster />
+              <Modals />
+              {children}
+            </JotaiProvider>
           </ConvexClientProvider>
         </body>
       </html>
