@@ -14,7 +14,20 @@ import {
 
 import { Hint } from "./hint"
 import { Button } from "./ui/button"
+import { EmojiPopover } from "./emoji-popover"
+
 import "quill/dist/quill.snow.css"
+
+type Emoji = {
+  id: string
+  name: string
+  native: string
+  unified: string
+  skin?: number
+  emoticons?: string[]
+  shortcodes?: string[]
+  custom?: boolean
+}
 
 type EditorValue = {
   image: File | null
@@ -132,6 +145,11 @@ const Editor = ({
     }
   }
 
+  const onEmojiSelect = (emoji: Emoji) => {
+    const quill = quillRef.current
+    quill?.insertText(quill?.getSelection()?.index || 0, emoji.native)
+  }
+
   const isEmpty = text.replace(/<(.|\n)*?>/g, "").trim().length === 0
 
   return (
@@ -151,16 +169,11 @@ const Editor = ({
               <PiTextAa className="size-4" />
             </Button>
           </Hint>
-          <Hint label="Emoji">
-            <Button
-              disabled={disabled}
-              size="iconSm"
-              variant="ghost"
-              onClick={() => {}}
-            >
+          <EmojiPopover onEmojiSelect={onEmojiSelect}>
+            <Button disabled={disabled} size="iconSm" variant="ghost">
               <Smile className="size-4" />
             </Button>
-          </Hint>
+          </EmojiPopover>
           {variant === "create" && (
             <Hint label="Image">
               <Button
