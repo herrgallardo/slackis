@@ -19,17 +19,6 @@ import { EmojiPopover } from "./emoji-popover"
 
 import "quill/dist/quill.snow.css"
 
-type Emoji = {
-  id: string
-  name: string
-  native: string
-  unified: string
-  skin?: number
-  emoticons?: string[]
-  shortcodes?: string[]
-  custom?: boolean
-}
-
 type EditorValue = {
   image: File | null
   body: string
@@ -158,9 +147,9 @@ const Editor = ({
     }
   }
 
-  const onEmojiSelect = (emoji: Emoji) => {
+  const onEmojiSelect = (emojiValue: string) => {
     const quill = quillRef.current
-    quill?.insertText(quill?.getSelection()?.index || 0, emoji.native)
+    quill?.insertText(quill?.getSelection()?.index || 0, emojiValue)
   }
 
   const isEmpty = !image && text.replace(/<(.|\n)*?>/g, "").trim().length === 0
