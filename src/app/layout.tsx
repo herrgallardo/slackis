@@ -1,24 +1,17 @@
 import { Toaster } from "@/components/ui/sonner"
 import { JotaiProvider } from "@/components/jotai-provider"
 import type { Metadata } from "next"
-import localFont from "next/font/local"
-import { Lato } from "next/font/google"
+import { Montserrat, Lato } from "next/font/google"
 
 import "./globals.css"
 import { ConvexClientProvider } from "@/components/convex-client-provider"
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server"
 import { Modals } from "@/components/modals"
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-})
-
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const montserrat = Montserrat({
+  weight: ["100", "300", "400", "500", "700", "900"],
+  subsets: ["latin"],
+  variable: "--font-montserrat",
 })
 
 const lato = Lato({
@@ -40,9 +33,7 @@ export default function RootLayout({
   return (
     <ConvexAuthNextjsServerProvider>
       <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} ${lato.variable} antialiased`}
-        >
+        <body className={`${montserrat.variable} ${lato.variable} antialiased`}>
           <ConvexClientProvider>
             <JotaiProvider>
               <Toaster />
